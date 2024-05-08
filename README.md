@@ -1,8 +1,6 @@
 # Gerenciamento de Mobs e Batalhas 🪓
 
-<div align="center">
-  <img src="/assets/images/minecraft.gif" alt="Banner" width="800" height="675">
-</div>
+![Banner](/assets/images/minecraft%20banner.gif)
 
 ---
 
@@ -90,19 +88,39 @@ Para testar cada rota individualmente, siga estas instruções:
    - Método: GET
    - URL: `http://localhost:4000/mobs/{id}`
      - Substitua `{id}` pelo ID do mob que deseja recuperar.
+    
+6. **Rota para obter todos os heróis de um determinado nível**
 
-6. **Rota para realizar uma batalha entre dois mobs**
+- Método: GET
+- URL: `http://localhost:4000/mobs/nivel/{nivel}`
+  - Substitua `{nivel}` pelo nível desejado.
+
+7. **Rota para obter todos os heróis com uma determinada habilidade**
+
+- Método: GET
+- URL: `http://localhost:4000/mobs/habilidade/{habilidade}`
+  - Substitua `{habilidade}` pela habilidade desejada.
+
+
+8. **Rota para realizar uma batalha entre dois mobs**
 
    - Método: GET
    - URL: `http://localhost:4000/batalhas/{mob1_id}/{mob2_id}`
      - Substitua `{mob1_id}` e `{mob2_id}` pelos IDs dos mobs que deseja colocar para batalhar.
 
-7. **Rota para obter o histórico de batalhas**
+9. **Rota para obter o histórico de batalhas**
 
    - Método: GET
    - URL: `http://localhost:4000/batalhas`
 
-8. **Rota para obter o histórico de batalhas com os dados dos mobs**
+10. **Rota para obter o histórico de batalhas com os dados dos mobs**
+
+   - Método: GET
+   - URL: `http://localhost:4000/batalhas/mobs`
+
+**Aviso Importante:**
+
+Este projeto destina-se exclusivamente a fins educacionais. Os dados de acesso ao banco de dados estão expostos neste projeto, pois é destinado a fins educacionais como um projeto. Certifique-se de não utilizar informações sensíveis neste contexto.
 
    - Método: GET
    - URL: `http://localhost:4000/batalhas/mobs`
