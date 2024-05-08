@@ -118,6 +118,11 @@ Para testar cada rota individualmente, siga estas instruções:
    - Método: GET
    - URL: `http://localhost:4000/batalhas/mobs`
 
+11. **Rota para obter um mob específico por ID**
+
+   - Método: GET
+   - URL: `http://localhost:4000/mobs/{id}`
+
 **Aviso Importante:**
 
 Este projeto destina-se exclusivamente a fins educacionais. Os dados de acesso ao banco de dados estão expostos neste projeto, pois é destinado a fins educacionais como um projeto. Certifique-se de não utilizar informações sensíveis neste contexto.
