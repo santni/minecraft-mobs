@@ -107,6 +107,32 @@ app.get('/mobs/:filter', async (req, res) => {
     }
 })
 
+// ✅ Rota para obter todos os mobs de um determinado nível:
+
+app.get('/mobs/nivel/:nivel', async (req, res) => {
+    const { nivel } = req.params;
+    try {
+        const { rows } = await pool.query('SELECT * FROM mobs WHERE nivel = $1', [nivel]);
+        res.json(rows);
+    } catch (error) {
+        console.error('Erro ao obter mob pelo nivel', error);
+        res.status(500).send('Erro ao obter mob pelo nivel');
+    }
+});
+
+// ✅ Rota para obter todos os mobs com um determinado habilidade:
+
+app.get('/mobs/habilidade/:habilidade', async (req, res) => {
+    const { habilidade } = req.params;
+    try {
+        const { rows } = await pool.query('SELECT * FROM mobs WHERE habilidade = $1', [habilidade]);
+        res.json(rows);
+    } catch (error) {
+        console.error('Erro ao obter mob pela habilidade', error);
+        res.status(500).send('Erro ao obter mob pela habilidade');
+    }
+});
+
 
 // ✅ Rota para criar/adicionar um novo mob:
 
