@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.send('A rota está funcionado!')
 });
 
-// - Rota para obter um mob:
+// ✅ Rota para obter todos os mobs:
 
 app.get('/mobs', async (req, res) => {
     try {
@@ -33,8 +33,62 @@ app.get('/mobs', async (req, res) => {
     }
 });
 
+// ✅ Rota para obter o histórico de batalhas:
 
-// - Rota para obter um mob por ID:
+app.get('/batalhas', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM batalhas');
+        res.json({
+            total: result.rowCount,
+            batalhas: result.rows,
+        });
+    } catch (error) {
+        console.error('Erro ao obter todas as batalhas', error);
+        res.status(500).send('Erro ao obter todas as batalhas');
+    }
+});
+
+// - Rota para realizar uma batalha entre os mobs:
+
+app.get('/batalhas/:mob1_id/:mob2_id', async (req, res) => {
+    try {
+        const { mob1_id, mob2_id } = req.params;
+
+        // Obter dados dos mobs do minecraft
+        const result1 = await pool.query('SELECT * FROM mobs WHERE id = $1', [mob1_id]);
+        const result2 = await pool.query('SELECT * FROM mobs WHERE id = $1', [mob2_id]);
+
+        const mob1 = result1.rows[0];
+        const mob2 = result2.rows[0];
+
+        let vencedor = -1;
+
+         // O mob com o maior nível ganha a batalha
+
+        if (mob1.nivel > mob2.nivel) {
+            vencedor = mob1.id;
+        } else if (mob2.nivel > mob1.nivel) {
+            vencedor = mob2.id;
+        }
+
+        // Dados da tabela de batalha
+        const batalhaInsertQuery = 'INSERT INTO batalhas (mob1_id, mob2_id, vencedor) VALUES ($1, $2, $3) RETURNING id';
+        const batalhaResult = await pool.query(batalhaInsertQuery, [mob1_id, mob2_id, vencedor]);
+
+        let vencedorInfo;
+        if (vencedor != -1) {
+            const vencedorResult = await pool.query('SELECT * FROM mobs WHERE id = $1', [vencedor]);
+            vencedorInfo = vencedorResult.rows[0];
+        }
+
+        res.json({ vencedor: vencedor == -1 ? 'Empate' : vencedor, batalha_id: batalhaResult.rows[0].id });
+    } catch (error) {
+        console.error('Erro ao batalhar', error);
+        res.status(500).json({ message: 'Erro ao batalhar' });
+    }
+});
+
+// ✅ Rota para obter mob pelo nome (filtro de pesquisa):
 
 app.get('/mobs/:filter', async (req, res) => {
     try {
@@ -54,7 +108,7 @@ app.get('/mobs/:filter', async (req, res) => {
 })
 
 
-// - Rota para criar/adicionar um novo mob:
+// ✅ Rota para criar/adicionar um novo mob:
 
 app.post('/mobs', async (req, res) => {
     try {
@@ -68,8 +122,34 @@ app.post('/mobs', async (req, res) => {
     }
 });
 
+// ✅ Rota para atualizar um mob existente:
+app.put('/mobs/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { nome, habilidade, nivel, hp } = req.body;
+
+        await pool.query('UPDATE mobs SET nome = $1, habilidade = $2, nivel = $3, hp = $4 WHERE id = $5', [nome, habilidade, nivel, hp, id]);
+        res.status(200).send({ mensagem: 'Mob atualizado com sucesso' });
+    } catch (error) {
+        console.error('Erro ao atualizar mob', error);
+        res.status(500).send('Erro ao atualizar mob');
+    }
+});
+
+// ✅ Rota para deletar um mob específico:
+
+app.delete('/mobs/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('DELETE FROM mobs WHERE id = $1', [id]);
+        res.status(200).send({ mensagem: 'Mob deletado com sucesso!!' });
+    } catch (error) {
+        console.error('Erro ao deletar mob', error);
+        res.status(500).send('Erro ao deletar mob');
+    }
+});
 
 
 app.listen(port, () => {
-    console.log(`Servidor rodando na porta ${port}`);
+    console.log(`Servidor rodando na porta ${port} ✅`);
 });
