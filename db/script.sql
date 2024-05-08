@@ -21,7 +21,7 @@ CREATE TABLE batalhas(
     FOREIGN KEY (mob2_id) REFERENCES mobs(id)
 );
 
---inserts
+--inserts de mobs
 
 -- INSERT INTO mobs (nome, habilidade, nivel, hp) VALUES ('Creeper', 'Explosão', 10, 100);
 -- INSERT INTO mobs (nome, habilidade, nivel, hp) VALUES ('Witch', 'Poções mágicas', 11, 110);
@@ -38,3 +38,5 @@ CREATE TABLE batalhas(
 -- INSERT INTO mobs (nome, habilidade, nivel, hp) VALUES ('Pillager', 'Ataque com besta', 16, 160);
 -- INSERT INTO mobs (nome, habilidade, nivel, hp) VALUES ('Evoker', 'Invocação de monstros', 25, 250);
 -- INSERT INTO mobs (nome, habilidade, nivel, hp) VALUES ('Phantom', 'Ataque aéreo', 22, 220);
+
+-- insert teste de batalha
