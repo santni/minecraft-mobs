@@ -1,6 +1,6 @@
 # Gerenciamento de Mobs e Batalhas 🪓
 
-![Banner](/assets/images/minecraft.gif)
+![Banner](/assets/images/minecraft banner.gif)
 
 ---
 
