@@ -39,4 +39,3 @@ CREATE TABLE batalhas(
 -- INSERT INTO mobs (nome, habilidade, nivel, hp) VALUES ('Evoker', 'Invocação de monstros', 25, 250);
 -- INSERT INTO mobs (nome, habilidade, nivel, hp) VALUES ('Phantom', 'Ataque aéreo', 22, 220);
 
--- insert teste de batalha
