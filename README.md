@@ -1,6 +1,8 @@
 # Gerenciamento de Mobs e Batalhas 🪓
 
-![Banner](/assets/images/minecraft banner.gif)
+<div align="center">
+  <img src="/assets/images/minecraft.gif" alt="Banner" width="1200" height="675">
+</div>
 
 ---
 
